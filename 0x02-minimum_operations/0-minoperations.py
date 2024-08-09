@@ -30,3 +30,4 @@ def minOperations(n):
             break
 
     return operations
+
