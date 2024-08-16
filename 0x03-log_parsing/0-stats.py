@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 """
-This script reads input from stdin line by line, computes metrics on HTTP status codes and file sizes,
-and prints a summary of these metrics every 10 lines and at the end of input.
+This script reads input from stdin line by line,
+computes metrics on HTTP status codes and file sizes,
+and prints a summary of these metrics every 10 lines
+and at the end of input.
 """
 import sys
 
@@ -34,10 +36,13 @@ def printCodes():
 
 def countCodeSize(listData):
     """
-    Update the total file size and increment the count for the encountered HTTP status code.
+    Update the total file size and increment the count
+    for the encountered HTTP status code.
 
-    :param listData: A list containing the split elements of an input line,
-                     where the last element is the file size and the second-to-last is the status code.
+    params
+    :listData: A list containing the split elements of an input line,
+                where the last element is the file size and
+                the second-to-last is the status code.
     """
     # Update total file size
     counters["size"] += int(listData[-1])
@@ -62,7 +67,8 @@ if __name__ == "__main__":
                 printCodes()
             counters["lines"] += 1
     except KeyboardInterrupt:
-        # Handle keyboard interrupt (Ctrl+C) by printing current metrics before exiting
+        # Handle keyboard interrupt (Ctrl+C)
+        # by printing current metrics before exiting
         printCodes()
         raise
 
