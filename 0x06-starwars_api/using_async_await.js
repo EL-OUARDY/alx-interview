@@ -9,7 +9,7 @@ const movieId = process.argv[2];
 // Check if movieId is not provided or is empty
 if (!movieId) {
   console.error("Error: Movie ID must be provided as the first argument");
-  process.exit(1); // Exit the script with a non-zero code to indicate an error
+  process.exit(1); // Exit the script
 }
 
 // URL for the Star Wars API with the movie ID
@@ -29,6 +29,18 @@ const fetchCharacter = (characterUrl) => {
   });
 };
 
+// Function to fetch characters in order using async/await
+async function fetchCharactersInOrder(characters) {
+  for (const characterUrl of characters) {
+    try {
+      const characterName = await fetchCharacter(characterUrl); // Await the request to finish
+      console.log(characterName); // Print character name in the correct order
+    } catch (error) {
+      console.error("Error fetching character:", error);
+    }
+  }
+}
+
 // Make a request to the Star Wars API to get movie details
 request(url, (error, response, body) => {
   if (error) {
@@ -46,19 +58,7 @@ request(url, (error, response, body) => {
     // Extract the list of character URLs from the movie data
     const characters = filmData.characters;
 
-    // Map character URLs to Promises
-    const characterPromises = characters.map((characterUrl) =>
-      fetchCharacter(characterUrl)
-    );
-
-    // Use Promise.all to wait for all character data to be fetched
-    Promise.all(characterPromises)
-      .then((characterNames) => {
-        // Print the character names in the correct order
-        characterNames.forEach((name) => console.log(name));
-      })
-      .catch((error) => {
-        console.error("Error fetching character data:", error);
-      });
+    // Fetch and print the characters in the correct order
+    fetchCharactersInOrder(characters);
   }
 });
