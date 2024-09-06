@@ -1,14 +1,14 @@
 #!/usr/bin/node
 
 // Import the request module to make HTTP requests
-const request = require("request");
+const request = require('request');
 
 // The first command-line argument passed is the Movie ID (e.g., 3 for "Return of the Jedi")
 const movieId = process.argv[2];
 
 // Check if movieId is not provided or is empty
 if (!movieId) {
-  console.error("Error: Movie ID must be provided as the first argument");
+  console.error('Error: Movie ID must be provided as the first argument');
   process.exit(1); // Exit the script
 }
 
@@ -30,13 +30,13 @@ const fetchCharacter = (characterUrl) => {
 };
 
 // Function to fetch characters in order using async/await
-async function fetchCharactersInOrder(characters) {
+async function fetchCharactersInOrder (characters) {
   for (const characterUrl of characters) {
     try {
       const characterName = await fetchCharacter(characterUrl); // Await the request to finish
       console.log(characterName); // Print character name in the correct order
     } catch (error) {
-      console.error("Error fetching character:", error);
+      console.error('Error fetching character:', error);
     }
   }
 }
@@ -50,8 +50,8 @@ request(url, (error, response, body) => {
     const filmData = JSON.parse(body);
 
     // Check if filmData is not exist
-    if (filmData.detail === "Not found") {
-      console.error("Error: Movie Not Found");
+    if (filmData.detail === 'Not found') {
+      console.error('Error: Movie Not Found');
       process.exit(1); // Exit the script
     }
 
