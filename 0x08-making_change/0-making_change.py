@@ -27,19 +27,25 @@ def makeChange(coins, total):
     dp = [float("inf")] * (total + 1)
     dp[0] = 0
 
-    # Solve every subproblem from 1 to total
-    for i in range(1, total + 1):
-        # For each coin we are given
-        for coin in coins:
-            # If it is less than or equal to the sub problem total
-            if coin <= i:
-                # check if it gives us a more optimal solution
-                dp[i] = min(dp[i], dp[i - coin] + 1)
+    # Loop through each coin in the list
+    for coin in coins:
+        """
+        For each coin, update the dp array for values
+        from the coin value up to the total
+        """
+        for value in range(coin, total + 1):
+            """
+            Update dp[value] as the minimum between its current
+            value and dp[value - coin] + 1
+            
+            dp[value - coin] gives the number of coins needed
+            to reach the remainder (value - coin)
+            """
+            dp[value] = min(dp[value], dp[value - coin] + 1)
 
     """
-    dp[total] holds the answer
-    
-    Otherwise, If we do not have an answer then dp[total] will be INFINITY
-    meaning dp[total] > total will be true. So we return -1
+    If dp[total] is still infinity, it means it's impossible to reach
+    the total with the given coins, return -1
+    Otherwise, return dp[total], which holds the number of coins needed
     """
-    return -1 if dp[total] > total else dp[total]
+    return dp[total] if dp[total] != float("inf") else -1
