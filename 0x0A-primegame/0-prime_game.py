@@ -43,7 +43,8 @@ def isWinner(x, nums):
     ben_wins = 0
 
     for n in nums:
-        # If the count of prime numbers up to n is odd, Maria wins (since she starts first)
+        # If the count of prime numbers up to n is odd,
+        # Maria wins (since she starts first)
         # If it's even, Ben wins
         if prime_count[n] % 2 == 1:
             maria_wins += 1
